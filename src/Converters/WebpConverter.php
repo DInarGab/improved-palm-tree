@@ -4,17 +4,18 @@
 
 namespace Reaspekt\Converters;
 
+use Reaspekt\File\Interfaces\ImgFileInterface;
 use Reaspekt\File\ImgFile;
 
 class WebpConverter
 {
-    private ImgFile $imageFile;
+    private ImgFileInterface $imageFile;
 
-    private ImgFile $originalImageFile;
+    private ImgFileInterface $originalImageFile;
 
     private $quality = "70";
 
-    public function convertToWebp(ImgFile $originalImageFile)
+    public function convertToWebp(ImgFileInterface $originalImageFile)
     {
         $this->originalImageFile = $originalImageFile;
         $webpPath = str_ireplace([".jpg", ".jpeg", ".png"], ".webp", $this->originalImageFile->getPath());
@@ -24,7 +25,7 @@ class WebpConverter
             } elseif ($this->originalImageFile->getMimeType() == 'image/jpeg') {
                 $image = $this->jpgToWebp();
             }
-            imagewebp($image, $webpPath, $this->quality);
+            imagewebp($image, $_SERVER['DOCUMENT_ROOT'] . $webpPath, $this->quality);
             imagedestroy($image);
     
             if (filesize($_SERVER['DOCUMENT_ROOT'] . $webpPath) % 2 == 1) {

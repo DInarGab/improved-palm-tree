@@ -13,7 +13,7 @@ class ImgFile implements ImgFileInterface
     private int $height;
     private string $mimeType;
 
-    private function __construct($path, $setAttributes = true) {
+    public function __construct($path, $setAttributes = true) {
         if (!file_exists($_SERVER["DOCUMENT_ROOT"] . $path)) {
             throw new \InvalidArgumentException;
         }

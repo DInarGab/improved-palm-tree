@@ -1,0 +1,20 @@
+{
+    "name": "dinargab/helpers",
+    "description": "\"Small helpers for everyday life (hopefully more than 1)\"",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Reaspekt\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dinar Gabdrakhmanov",
+            "email": "Dinar@reaspekt.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0"
+    }
+}

@@ -17,7 +17,7 @@ class WebpConverter
     public function convertToWebp(ImgFile $originalImageFile)
     {
         $this->originalImageFile = $originalImageFile;
-        $webpPath = $_SERVER["DOCUMENT_ROOT"] . str_ireplace([".jpg", ".jpeg", ".png"], ".webp", $this->originalImageFile->getPath());
+        $webpPath = str_ireplace([".jpg", ".jpeg", ".png"], ".webp", $this->originalImageFile->getPath());
         if (!file_exists($webpPath)) {
             if ($this->originalImageFile->getMimeType() == 'image/png') {
                 $image = $this->pngToWebp();

@@ -14,7 +14,7 @@ class ImgFile implements ImgFileInterface
     private string $mimeType;
 
     private function __construct($path, $setAttributes = true) {
-        if (file_exists($_SERVER["DOCUMENT_ROOT"] . $path)) {
+        if (!file_exists($_SERVER["DOCUMENT_ROOT"] . $path)) {
             throw new \InvalidArgumentException;
         }
         $this->path = $path;

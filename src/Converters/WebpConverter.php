@@ -39,13 +39,13 @@ class WebpConverter
 
     private function jpgToWebp()
     {
-        $image = imagecreatefromjpeg($this->originalImageFile->getPath());
+        $image = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'] . $this->originalImageFile->getPath());
         return $image;
     }
 
     private function pngToWebp()
     {
-        $image = imagecreatefrompng($this->originalImageFile->getPath());
+        $image = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'] . $this->originalImageFile->getPath());
         imagepalettetotruecolor($image);
         imagealphablending($image, true);
         imagesavealpha($image, true);

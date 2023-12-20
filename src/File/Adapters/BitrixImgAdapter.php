@@ -15,7 +15,7 @@ class BitrixImgAdapter implements ImgFileInterface
     public function __construct(array | int $bitrixFile)
     {
         if (is_int($bitrixFile) && method_exists("CFile", "GetFileArray")) {
-            $this->bitrixFile = CFile::GetFileArray($bitrixFile);
+            $this->bitrixFile = \CFile::GetFileArray($bitrixFile);
         } elseif (is_array($bitrixFile) && isset($bitrixFile["SRC"])) {
             $this->bitrixFile = $bitrixFile;
         } else {

@@ -10,6 +10,10 @@ use Reaspekt\File\AbstractImgFile;
  */
 class BitrixImgAdapter extends AbstractImgFile
 {
+    /**
+     * Bitrix File Array
+     * @var array
+     */
     private array $bitrixFile;
     
     public function __construct(array | int $bitrixFile)
@@ -21,12 +25,19 @@ class BitrixImgAdapter extends AbstractImgFile
         } else {
             throw new InvalidArgumentException("Argument must be id of image in bitrix system or File Array");
         }
-        $this->absolutePath = $_SERVER["DOCUMENT_ROOT"] . (string) $this->bitrixFile["SRC"];
         $this->path = (string) $this->bitrixFile["SRC"];
         $this->width = (int) $this->bitrixFile["WIDTH"];
         $this->height = (int) $this->bitrixFile["HEIGHT"];
         $this->mimeType = $this->bitrixFile["CONTENT_TYPE"];
         $this->fileName = $this->bitrixFile["FILE_NAME"];
+    }
+    /**
+     * Return Bitrix File Array
+     * @return array|mixed
+     */
+    public function getBitrixFile()
+    {
+        return $this->bitrixFile;
     }
 
 }

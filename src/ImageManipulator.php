@@ -33,4 +33,9 @@ class ImageManipulator
         return Converter::convertToWebp($img);
     }
 
+    public function resizerIsSet()
+    {
+        return isset($this->resizer);
+    }
+
 }

@@ -4,26 +4,35 @@
 
 namespace Reaspekt\Converters;
 
-use Reaspekt\File\Interfaces\ImgFileInterface;
+use Reaspekt\File\AbstractImgFile;
 use Reaspekt\File\ImgFile;
 
-class WebpConverter
+class ImageManipulator
 {
-    private ImgFileInterface $imageFile;
+    private AbstractImgFile $imageFile;
 
-    private ImgFileInterface $originalImageFile;
+    private AbstractImgFile $originalImageFile;
 
     private $quality = "70";
 
-    public function convertToWebp(ImgFileInterface $originalImageFile)
+    public function __construct(AbstractImgFile $originalImageFile)
     {
         $this->originalImageFile = $originalImageFile;
+    }
+
+    /**
+     * Converts input ImgFileInterface to webp file 
+     * @param \Reaspekt\File\AbstractImgFile $originalImageFile
+     * @return AbstractImgFile
+     */
+    public function convertToWebp()
+    {
         $webpPath = str_ireplace([".jpg", ".jpeg", ".png"], ".webp", $this->originalImageFile->getPath());
         if (!file_exists($webpPath)) {
             if ($this->originalImageFile->getMimeType() == 'image/png') {
-                $image = $this->pngToWebp();
+                $image = $this->fromPng();
             } elseif ($this->originalImageFile->getMimeType() == 'image/jpeg') {
-                $image = $this->jpgToWebp();
+                $image = $this->fromJpg();
             }
             imagewebp($image, $_SERVER['DOCUMENT_ROOT'] . $webpPath, $this->quality);
             imagedestroy($image);
@@ -32,18 +41,32 @@ class WebpConverter
                 file_put_contents($_SERVER['DOCUMENT_ROOT'] . $webpPath, "\0", FILE_APPEND);
             }
         }
-        $this->imageFile = new ImgFile($webpPath, true);
-        return $this->imageFile;
+        return new ImgFile($webpPath, true);
+    }
+
+    public function resize(AbstractImgFile $image, $width, $height)
+    {
+        $imagePathParts = pathinfo($image->getPath());
+        $newImageName = $imagePathParts['filename'] . "_" . $width . "-" . $height . $imagePathParts["extension"];
+        $newImagePath = str_ireplace($image->getFileName(), $newImageName, $_SERVER["DOCUMENT_ROOT"] . $image->getPath());
+        if (!file_exists($newImagePath)) {
+            $imagick = new \Imagick(realpath($image->getAbolutePath()));
+            $imagick->resizeImage($width, $height, \Imagick::FILTER_LANCZOS, 1, true);
+            $imagick->writeImage($newImageName);
+            $imagick->clear();
+            $imagick->destroy;
+        }
+        return new ImgFile($newImagePath, true);
     }
 
 
-    private function jpgToWebp()
+    private function fromJpg()
     {
         $image = imagecreatefromjpeg($_SERVER['DOCUMENT_ROOT'] . $this->originalImageFile->getPath());
         return $image;
     }
 
-    private function pngToWebp()
+    private function fromPng()
     {
         $image = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'] . $this->originalImageFile->getPath());
         imagepalettetotruecolor($image);

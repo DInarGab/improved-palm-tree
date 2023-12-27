@@ -4,11 +4,11 @@
 namespace Reaspekt\File\Adapters;
 
 use InvalidArgumentException;
-use Reaspekt\File\Interfaces\ImgFileInterface;
+use Reaspekt\File\AbstractImgFile;
 /**
  * Use for Bitrix
  */
-class BitrixImgAdapter implements ImgFileInterface
+class BitrixImgAdapter extends AbstractImgFile
 {
     private array $bitrixFile;
     
@@ -21,30 +21,12 @@ class BitrixImgAdapter implements ImgFileInterface
         } else {
             throw new InvalidArgumentException("Argument must be id of image in bitrix system or File Array");
         }
+        $this->absolutePath = $_SERVER["DOCUMENT_ROOT"] . (string) $this->bitrixFile["SRC"];
+        $this->path = (string) $this->bitrixFile["SRC"];
+        $this->width = (int) $this->bitrixFile["WIDTH"];
+        $this->height = (int) $this->bitrixFile["HEIGHT"];
+        $this->mimeType = $this->bitrixFile["CONTENT_TYPE"];
+        $this->fileName = $this->bitrixFile["FILE_NAME"];
     }
 
-    public function getFileName():string
-    {
-        return $this->bitrixFile["FILE_NAME "];
-    }
-
-    public function getMimeType():string
-    {
-        return $this->bitrixFile["CONTENT_TYPE"];
-    }
-
-    public function getWidth():int
-    {
-        return (int) $this->bitrixFile["WIDTH"];
-    }
-
-    public function getHeight(): int 
-    {
-        return (int) $this->bitrixFile["HEIGHT"];
-    }
-
-    public function getPath(): string
-    {
-        return (string) $this->bitrixFile["SRC"];
-    }
 }

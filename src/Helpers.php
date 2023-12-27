@@ -2,14 +2,14 @@
 
 namespace Reaspekt;
 
-use Reaspekt\Converters\WebpConverter;
+use Reaspekt\Converters\ImageManipulator;
 use Reaspekt\File\Interfaces\ImgFileInterface;
 
 class Helpers
 {
 	public static function convertToWebp(ImgFileInterface $imgFile)
 	{
-		$converter = new WebpConverter();
+		$converter = new ImageManipulator();
 		return $converter->convertToWebp($imgFile);
 	}
 }

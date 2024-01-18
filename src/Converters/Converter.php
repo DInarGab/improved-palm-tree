@@ -4,21 +4,18 @@
 
 namespace Reaspekt\Converters;
 
-use Reaspekt\File\AbstractImgFile;
 use Reaspekt\File\ImgFile;
 
 class Converter
 {
-
-
     private const QUALITY = 80;
 
     /**
      * Converts input ImgFileInterface to webp file 
-     * @param \Reaspekt\File\AbstractImgFile $originalImageFile
-     * @return AbstractImgFile
+     * @param \Reaspekt\File\ImgFile $originalImageFile
+     * @return ImgFile
      */
-    public static function convertToWebp(AbstractImgFile $image)
+    public static function convertToWebp(ImgFile $image)
     {
         $webpPath = str_ireplace([".jpg", ".jpeg", ".png"], ".webp", $image->getPath());
         if (!file_exists($webpPath)) {
@@ -38,7 +35,7 @@ class Converter
     }
 
 
-    private static function fromJpg(AbstractImgFile $imageFile)
+    private static function fromJpg(ImgFile $imageFile)
     {
         $image = imagecreatefromjpeg($imageFile->getAbolutePath());
         return $image;

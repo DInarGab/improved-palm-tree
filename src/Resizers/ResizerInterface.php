@@ -3,8 +3,9 @@
 
 namespace Reaspekt\Resizers;
 
-use Reaspekt\File\AbstractImgFile;
+use Reaspekt\File\ImgFile;
 
-interface ResizerInterface {
-    public function resize(AbstractImgFile $imgFile, $width, $height);
+interface ResizerInterface
+{
+    public function resize(ImgFile $imgFile, $width, $height);
 }

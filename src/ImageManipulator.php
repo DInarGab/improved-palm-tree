@@ -3,7 +3,7 @@
 namespace Reaspekt;
 
 use Reaspekt\Converters\Converter;
-use Reaspekt\File\AbstractImgFile;
+use Reaspekt\File\ImgFile;
 use Reaspekt\Resizers\ResizerInterface;
 
 class ImageManipulator
@@ -20,7 +20,7 @@ class ImageManipulator
         $this->resizer = $resizer;
     }
 
-    public function resize(AbstractImgFile $img, $width, $height)
+    public function resize(ImgFile $img, $width, $height)
     {
         if (isset($this->resizer)) {
             return $this->resizer->resize($img, $width, $height);
@@ -28,7 +28,7 @@ class ImageManipulator
         throw new \Exception("Resizer is not set, use setResizer to set resizer obj");
     }
 
-    public function convertToWebp(AbstractImgFile $img)
+    public function convertToWebp(ImgFile $img)
     {
         return Converter::convertToWebp($img);
     }

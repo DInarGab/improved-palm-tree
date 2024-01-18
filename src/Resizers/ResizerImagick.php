@@ -1,12 +1,11 @@
 <?
 
 namespace Reaspekt\Resizers;
-use Reaspekt\File\AbstractImgFile;
 use Reaspekt\File\ImgFile;
 
 class ResizerImagick implements ResizerInterface
 {
-    public function resize(AbstractImgFile $imageFile, $width, $height)
+    public function resize(ImgFile $imageFile, $width, $height)
     {
         $imagePathParts = pathinfo($imageFile->getPath());
         $newImageName = $imagePathParts['filename'] . "-" . $width . "-" . $height . "." .  $imagePathParts["extension"];

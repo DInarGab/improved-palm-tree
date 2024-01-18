@@ -2,7 +2,7 @@
 
 namespace Reaspekt;
 
-use Reaspekt\File\AbstractImgFile;
+use Reaspekt\File\ImgFile;
 use Reaspekt\ImageManipulator;
 
 class PictureRenderer
@@ -16,7 +16,7 @@ class PictureRenderer
         }
         $this->imageManipulator = $imageManipulator;
     }
-    public function render(AbstractImgFile $imgFile, array $sizes) {
+    public function render(ImgFile $imgFile, array $sizes) {
 
         $resizedImgsArray = $this->batchResizeAndConvert($imgFile, $sizes);
         return $this->renderPicture($resizedImgsArray);

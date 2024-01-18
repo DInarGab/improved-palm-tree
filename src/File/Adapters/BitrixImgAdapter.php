@@ -4,11 +4,12 @@
 namespace Reaspekt\File\Adapters;
 
 use InvalidArgumentException;
-use Reaspekt\File\AbstractImgFile;
+use Reaspekt\File\ImgFile;
+
 /**
  * Use for Bitrix
  */
-class BitrixImgAdapter extends AbstractImgFile
+class BitrixImgAdapter extends ImgFile
 {
     /**
      * Bitrix File Array
@@ -16,7 +17,7 @@ class BitrixImgAdapter extends AbstractImgFile
      */
     private array $bitrixFile;
     
-    public function __construct(array | int $bitrixFile)
+    /*public function __construct(array | int $bitrixFile)
     {
         if (is_int($bitrixFile) && method_exists("CFile", "GetFileArray")) {
             $this->bitrixFile = \CFile::GetFileArray($bitrixFile);
@@ -30,7 +31,7 @@ class BitrixImgAdapter extends AbstractImgFile
         $this->height = (int) $this->bitrixFile["HEIGHT"];
         $this->mimeType = $this->bitrixFile["CONTENT_TYPE"];
         $this->fileName = $this->bitrixFile["FILE_NAME"];
-    }
+    }*/
     /**
      * Return Bitrix File Array
      * @return array|mixed

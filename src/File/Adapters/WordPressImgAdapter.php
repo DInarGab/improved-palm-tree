@@ -3,10 +3,11 @@
 namespace Reaspekt\File\Adapters;
 
 use InvalidArgumentException;
+use Reaspekt\File\ImgFile;
 use Reaspekt\File\Interfaces\ImgFileInterface;
 
 
-class WordPressImgAdapter implements ImgFileInterface
+class WordPressImgAdapter extends ImgFile
 {
 
     private array $wordPressFile;
